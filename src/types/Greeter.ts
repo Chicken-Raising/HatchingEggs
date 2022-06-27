@@ -19,6 +19,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface GreeterInterface extends utils.Interface {
@@ -35,7 +36,10 @@ export interface GreeterInterface extends utils.Interface {
 
   encodeFunctionData(functionFragment: "greet", values?: undefined): string;
   encodeFunctionData(functionFragment: "greeting", values?: undefined): string;
-  encodeFunctionData(functionFragment: "setGreeting", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setGreeting",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "throwError",
     values?: undefined
@@ -84,8 +88,8 @@ export interface Greeter extends BaseContract {
     greeting(overrides?: CallOverrides): Promise<[string]>;
 
     setGreeting(
-      _greeting: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _greeting: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     throwError(overrides?: CallOverrides): Promise<[void]>;
@@ -96,8 +100,8 @@ export interface Greeter extends BaseContract {
   greeting(overrides?: CallOverrides): Promise<string>;
 
   setGreeting(
-    _greeting: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _greeting: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   throwError(overrides?: CallOverrides): Promise<void>;
@@ -107,7 +111,10 @@ export interface Greeter extends BaseContract {
 
     greeting(overrides?: CallOverrides): Promise<string>;
 
-    setGreeting(_greeting: string, overrides?: CallOverrides): Promise<void>;
+    setGreeting(
+      _greeting: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     throwError(overrides?: CallOverrides): Promise<void>;
   };
@@ -120,8 +127,8 @@ export interface Greeter extends BaseContract {
     greeting(overrides?: CallOverrides): Promise<BigNumber>;
 
     setGreeting(
-      _greeting: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _greeting: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     throwError(overrides?: CallOverrides): Promise<BigNumber>;
@@ -133,8 +140,8 @@ export interface Greeter extends BaseContract {
     greeting(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setGreeting(
-      _greeting: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _greeting: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     throwError(overrides?: CallOverrides): Promise<PopulatedTransaction>;
